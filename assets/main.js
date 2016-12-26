@@ -1,5 +1,31 @@
 $(function() {
 
-  // your code will go here
+  $.ajax({
+      url: "https://www.codeschool.com/users/jmarcm.json",
+      dataType: "jsonp",
+      success: function(response) {
+          var coursesCompleted = response.courses.completed;
+          console.log(coursesCompleted);
+
+          $.each(coursesCompleted, function(i, courseCompleted) {
+              var $div = $("<div>", {class: "course"}).appendTo("#badges");
+
+              $("<h3>", {
+                  html: courseCompleted.title
+              }).appendTo($div);
+
+              $("<img>", {
+                  src: courseCompleted.badge
+              }).appendTo($div);
+
+              $("<a>", {
+                  href: courseCompleted.url,
+                  target: "_blank",
+                  class: "btn btn-primary",
+                  text: "See course"
+              }).appendTo($div);
+          })
+      }
+  })
 
 });
